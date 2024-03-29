@@ -2,7 +2,10 @@ import * as React from 'react';
 import { View, Text, Image, Button, TextInput } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as Linking from 'expo-linking';
+
+const prefix = Linking.createURL('/');
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +19,8 @@ function LogoTitle() {
 }
 
 function HomeScreen({ navigation, route }) {
-  const[ count, setCount ] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const insets = useSafeAreaInsets();
 
   React.useEffect(() => {
     if (route.params?.post) {
@@ -33,7 +37,15 @@ function HomeScreen({ navigation, route }) {
   }, [navigation])
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{
+      flex: 1, alignItems: 'center', justifyContent: 'space-between',
+
+      // Paddings to handle safe area
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
+      paddingLeft: insets.left,
+      paddingRight: insets.right,
+    }}>
       <Text>Home Screen</Text>
       <Button
         title='Go to details'
@@ -146,9 +158,13 @@ function RootStack() {
 }
 
 export default function App() {
+  const linking = {
+    prefixes: [prefix],
+  };
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
         <RootStack />
       </NavigationContainer>
     </SafeAreaProvider>
