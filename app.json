@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-jobs",
-    "slug": "react-native-jobs",
+    "name": "react-native-navigation",
+    "slug": "react-native-navigation",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,13 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rhzx3519.reactnativenavigation"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.rhzx3519.reactnativenavigation"
     },
     "web": {
       "favicon": "./assets/favicon.png"
